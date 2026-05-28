@@ -45,6 +45,20 @@ body {
   min-height: 100vh;
 }
 
+/* ===== LOAD-IN REVEAL ===== */
+.reveal {
+  opacity: 0;
+  animation: widgetIn 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  will-change: transform, opacity;
+}
+@keyframes widgetIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; animation: none; }
+}
+
 /* ===== TOP BAR ===== */
 .topbar {
   display: flex;
@@ -139,6 +153,12 @@ body {
   line-height: 1;
   text-shadow: 0 0 24px rgba(249,115,22,.35);
 }
+.countdown.is-counting { animation: cdPulse 1s ease-in-out infinite; }
+@keyframes cdPulse {
+  0%, 100% { text-shadow: 0 0 24px rgba(249, 115, 22, 0.35); transform: scale(1); }
+  50%      { text-shadow: 0 0 40px rgba(249, 115, 22, 0.75); transform: scale(1.025); }
+}
+.countdown { transform-origin: left center; }
 .count-phase { font-size: 10px; letter-spacing: 2px; color: var(--fg-2); margin-top: 10px; }
 .count-track { height: 4px; background: var(--elevated); border-radius: 999px; margin-top: 12px; overflow: hidden; }
 .count-fill { height: 100%; width: 0%; background: var(--orange); border-radius: 999px; transition: width .3s linear; }

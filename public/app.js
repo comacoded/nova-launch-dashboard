@@ -6,7 +6,7 @@
 
 const $ = (id) => document.getElementById(id);
 
-const COUNTDOWN = 30;      // seconds of terminal count before liftoff
+const COUNTDOWN = 5;       // seconds of terminal count before liftoff
 const ORBIT_HOLD = 12;     // seconds to hold on orbit before reset
 
 /* ---- Flight profile keyframes (t = seconds after liftoff) ----
@@ -179,7 +179,8 @@ function update() {
   const t = state.t;
 
   // --- countdown / clock ---
-  $("countdown").textContent = t <= 0 ? clockShort(t) : clockShort(t);
+  $("countdown").textContent = clockShort(t);
+  $("countdown").classList.toggle("is-counting", t < 0);
   if (t < 0) {
     $("countLabel").textContent = "T-MINUS";
     $("countPhase").textContent = "TERMINAL COUNTDOWN";
@@ -308,6 +309,17 @@ function initNav() {
   });
 }
 
+/* ---------- staggered load-in ---------- */
+function revealWidgets() {
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // document-order list of every top-level widget
+  const targets = document.querySelectorAll(".topbar, .col .card, .metric, .footer");
+  targets.forEach((el, i) => {
+    el.classList.add("reveal");
+    el.style.animationDelay = (i * 45) + "ms";
+  });
+}
+
 /* ---------- boot ---------- */
 buildEngines();
 buildSystems();
@@ -315,4 +327,5 @@ buildTimeline();
 buildCharts();
 buildSignals();
 initNav();
+revealWidgets();
 requestAnimationFrame(tick);
