@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA LAUNCH — Mission Control</title>
+  <meta name="description" content="NOVA LAUNCH interactive mission control dashboard — ARTEMIS VII" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- ===== TOP BAR ===== -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">▲</span>
+        <span class="brand-name">NOVA LAUNCH</span>
+      </div>
+      <nav class="topnav">
+        <button class="nav-item is-active" data-view="mission">MISSION CONTROL</button>
+        <button class="nav-item" data-view="telemetry">TELEMETRY</button>
+        <button class="nav-item" data-view="history">HISTORY</button>
+        <button class="nav-item" data-view="assets">ASSETS</button>
+      </nav>
+      <div class="status-pill" id="systemPill">
+        <span class="dot dot-green"></span>
+        <span id="systemPillText">SYSTEMS NOMINAL</span>
+      </div>
+    </header>
+
+    <!-- ===== GRID ===== -->
+    <main class="grid">
+
+      <!-- LEFT COLUMN -->
+      <section class="col col-left">
+        <article class="card mission-card">
+          <div class="card-kicker">CURRENT MISSION</div>
+          <h1 class="mission-name">ARTEMIS VII</h1>
+          <p class="mission-sub">Lunar Cargo Resupply Mission</p>
+          <div class="mission-meta">
+            <div class="meta-row"><span>ROUTE</span><b>Nova C-Heavy</b></div>
+            <div class="meta-row"><span>PAYLOAD</span><b>12,400 kg</b></div>
+            <div class="meta-row"><span>ORBIT TARGET</span><b>LEO 420 km</b></div>
+          </div>
+        </article>
+
+        <article class="card count-card">
+          <div class="card-kicker" id="countLabel">T-MINUS</div>
+          <div class="countdown" id="countdown">00:00:30</div>
+          <div class="count-phase" id="countPhase">TERMINAL COUNTDOWN</div>
+          <div class="count-track"><div class="count-fill" id="countFill"></div></div>
+        </article>
+
+        <article class="card telemetry-card">
+          <div class="card-kicker">LIVE TELEMETRY</div>
+          <div class="gauge-grid">
+            <div class="gauge">
+              <div class="gauge-top"><span>STAGE 1 FUEL</span><b id="g-s1fuel">100.0</b></div>
+              <div class="bar"><div class="bar-fill orange" id="b-s1fuel" style="width:100%"></div></div>
+            </div>
+            <div class="gauge">
+              <div class="gauge-top"><span>STAGE 1 LOX</span><b id="g-s1lox">100.0</b></div>
+              <div class="bar"><div class="bar-fill cyan" id="b-s1lox" style="width:100%"></div></div>
+            </div>
+            <div class="gauge">
+              <div class="gauge-top"><span>STAGE 2 FUEL</span><b id="g-s2fuel">100.0</b></div>
+              <div class="bar"><div class="bar-fill orange" id="b-s2fuel" style="width:100%"></div></div>
+            </div>
+            <div class="gauge">
+              <div class="gauge-top"><span>STAGE 2 LOX</span><b id="g-s2lox">100.0</b></div>
+              <div class="bar"><div class="bar-fill cyan" id="b-s2lox" style="width:100%"></div></div>
+            </div>
+            <div class="gauge">
+              <div class="gauge-top"><span>THRUST</span><b id="g-thrust">0.0</b></div>
+              <div class="bar"><div class="bar-fill violet" id="b-thrust" style="width:0%"></div></div>
+            </div>
+            <div class="gauge">
+              <div class="gauge-top"><span>CHAMBER PRESS</span><b id="g-chamber">0.0</b></div>
+              <div class="bar"><div class="bar-fill violet" id="b-chamber" style="width:0%"></div></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- CENTER COLUMN -->
+      <section class="col col-center">
+
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-label">ALTITUDE</div>
+            <div class="metric-value"><span id="m-alt">0.00</span><i>km</i></div>
+            <div class="metric-target">TARGET <b>420 km</b></div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">VELOCITY</div>
+            <div class="metric-value"><span id="m-vel">0.00</span><i>m/s</i></div>
+            <div class="metric-target">TARGET <b>7800 m/s</b></div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">DOWNRANGE</div>
+            <div class="metric-value"><span id="m-dr">0.00</span><i>km</i></div>
+            <div class="metric-target">TARGET <b>1300 km</b></div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">DYNAMIC PRESSURE</div>
+            <div class="metric-value"><span id="m-q">0.00</span><i>kPa</i></div>
+            <div class="metric-target">MAX-Q <b id="t-q">33.0</b></div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">G-FORCE</div>
+            <div class="metric-value"><span id="m-g">1.0</span><i>G</i></div>
+            <div class="metric-target">MAX <b id="t-g">3.6</b></div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">ACCELERATION</div>
+            <div class="metric-value"><span id="m-acc">9.81</span><i>m/s²</i></div>
+            <div class="metric-target">PEAK <b id="t-acc">36</b></div>
+          </div>
+        </div>
+
+        <div class="chart-row">
+          <article class="card chart-card">
+            <div class="card-kicker">ALTITUDE PROFILE</div>
+            <div class="chart" id="chart-alt"></div>
+            <div class="chart-axis"><span>T+0</span><span>T+1m</span><span>T+2m</span><span>T+3m</span><span>T+4m</span><span>T+5m</span></div>
+          </article>
+          <article class="card chart-card">
+            <div class="card-kicker">VELOCITY PROFILE</div>
+            <div class="chart" id="chart-vel"></div>
+            <div class="chart-axis"><span>T+0</span><span>T+1m</span><span>T+2m</span><span>T+3m</span><span>T+4m</span><span>T+5m</span></div>
+          </article>
+        </div>
+
+        <div class="lower-row">
+          <article class="card engine-card">
+            <div class="card-kicker">ENGINE CLUSTER <span class="kicker-tag" id="engineMode">9 ACTIVE</span></div>
+            <div class="engine-grid" id="engineGrid"></div>
+            <div class="engine-foot"><span>TOTAL THRUST</span><b id="engineThrust">0.0 MN</b></div>
+          </article>
+
+          <article class="card stage-card">
+            <div class="card-kicker">STAGE STATUS</div>
+            <div class="stage" id="stage1">
+              <div class="stage-head"><b>STAGE 1</b><span class="stage-state" id="stage1State">FUELING</span></div>
+              <div class="stage-meta"><span>CHAMBER</span><b id="stage1Temp">205°C</b></div>
+            </div>
+            <div class="stage" id="stage2">
+              <div class="stage-head"><b>STAGE 2</b><span class="stage-state" id="stage2State">STANDBY</span></div>
+              <div class="stage-meta"><span>CHAMBER</span><b id="stage2Temp">18°C</b></div>
+            </div>
+          </article>
+
+          <article class="card comms-card">
+            <div class="card-kicker">COMMUNICATIONS</div>
+            <div class="comms-list">
+              <div class="comms-row"><span>S-BAND</span><span class="tag-link" id="c-sband">LINKED</span><div class="signal" data-bars="4"></div></div>
+              <div class="comms-row"><span>X-BAND</span><span class="tag-link" id="c-xband">LINKED</span><div class="signal" data-bars="4"></div></div>
+              <div class="comms-row"><span>GPS</span><span class="tag-link" id="c-gps">LOCK 11</span><div class="signal" data-bars="3"></div></div>
+              <div class="comms-row"><span>TELEMETRY</span><span class="tag-link" id="c-tlm">STREAM</span><div class="signal" data-bars="4"></div></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <section class="col col-right">
+        <article class="card sys-card">
+          <div class="card-kicker">SYSTEMS STATUS</div>
+          <div class="sys-list" id="sysList"></div>
+        </article>
+
+        <article class="card cond-card">
+          <div class="card-kicker">LAUNCH CONDITIONS</div>
+          <div class="cond-row"><span>WIND</span><b>7.2 m/s NE</b><span class="tag-ok">GO</span></div>
+          <div class="cond-row"><span>VISIBILITY</span><b>Clear</b><span class="tag-ok">GO</span></div>
+          <div class="cond-row"><span>TEMP</span><b>24°C</b><span class="tag-ok">GO</span></div>
+          <div class="cond-row"><span>CLOUD CEILING</span><b>None</b><span class="tag-ok">GO</span></div>
+          <div class="cond-row"><span>UPPER WINDS</span><b>Nominal</b><span class="tag-ok">GO</span></div>
+        </article>
+
+        <article class="card timeline-card">
+          <div class="card-kicker">MISSION TIMELINE</div>
+          <div class="timeline" id="timeline"></div>
+        </article>
+      </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="foot-left">
+        <span>MISSION CLOCK</span>
+        <b id="footClock">T-00:00:30</b>
+      </div>
+      <div class="foot-center" id="footEvent">PROPELLANT LOADING COMPLETE</div>
+      <div class="foot-right">
+        <span>TARGET ORBIT</span>
+        <b>LEO 420 KM</b>
+        <span class="dot dot-green"></span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
